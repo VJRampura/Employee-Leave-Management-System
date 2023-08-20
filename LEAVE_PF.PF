@@ -1,0 +1,11 @@
+                R LEAVER
+                  EMP_LID        4S         COLHDG('EMPLOYEE ID')
+                  FROM_DATE      8S         EDTCDE(Y)
+                  FROM_DAY       2A         COLHDG('FROM DAY TYPE')
+                  TO_DATE        8S         EDTCDE(Y)
+                  TO_DAY         2A         COLHDG('TO DAY TYPE')
+                  TOTAL_DAY      3S 1
+                  REASON       100A
+                  STATUS         1A         COLHDG('STATUS OF LEAVE')
+                  LEAVE_TYPE     2A
+                K EMP_LID

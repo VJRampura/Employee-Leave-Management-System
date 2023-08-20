@@ -1,0 +1,1431 @@
+     A*%%TS  SD  20221228  183715  RAM1008     REL-V7R5M0  5770-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R LOGINR
+     A*%%TS  SD  20221228  110155  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      RTNCSRLOC(*RECNAME &CREC &CFLD)
+     A                                  2 37'Sign On'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 71DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  1 65'DATE:'
+     A                                  2 65'TIME:'
+     A            CREC          10A  H
+     A            CFLD          10A  H
+     A                                  9 13'User.................:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                 11 13'Password.............:'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                 21  3'F3 = Exit'
+     A                                      COLOR(BLU)
+     A                                 21 19'F5 = Refresh'
+     A                                      COLOR(BLU)
+     A            UID            4Y 0B  9 38DSPATR(UL)
+     A  09                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  51                                  ERRMSG('Incorrect ID' 51)
+     A            UPASS         20A  I 11 38CHECK(LC)
+     A  11                                  DSPATR(PC)
+     A                                      DSPATR(CS)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(ND)
+     A  52                                  ERRMSG('Incorrect Password' 52)
+     A                                  2 71TIME
+     A                                      COLOR(WHT)
+     A                                  1  2SYSNAME
+     A                                      COLOR(WHT)
+     A                                  1 28'Employee Management System'
+     A          R ADSBRD                    SFL
+     A*%%TS  SD  20221223  080542  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CHECK(AB)
+     A  02                                  SFLNXTCHG
+     A            AAD_ROLE  R        O  9 69REFFLD(PF1R/ROLE RAM10081/EMPMASTER)
+     A            AADOPT         1Y 0B  9  4DSPATR(UL)
+     A                                      EDTCDE(4)
+     A            AAD_CITY      20A  O  9 47
+     A            AAD_NAME      30A  O  9 15
+     A            AAD_ID         4Y 0O  9  9EDTCDE(4)
+     A          R ADSBRDCT                  SFLCTL(ADSBRD)
+     A*%%TS  SD  20221227  102445  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA06(06 'Add Employee')
+     A                                      CA07(07 'Add Holiday')
+     A                                      CA10(10 'View Holiday')
+     A                                      CA12(12 'Cancel')
+     A                                      CA08(08 'Manager leave')
+     A                                      OVERLAY
+     A  91                                  SFLDSP
+     A  91                                  SFLDSPCTL
+     A  71                                  SFLINZ
+     A N91                                  SFLCLR
+     A  91                                  SFLEND(*MORE)
+     A                                      SFLRNA
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                  1  3'User:'
+     A            AAD_USER      10A  O  1  9COLOR(WHT)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 64'DATE:'
+     A                                  2 64'TIME:'
+     A                                  1 70DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 70TIME
+     A                                      COLOR(WHT)
+     A                                  5 49'Position to Id......'
+     A                                      COLOR(BLU)
+     A            AAD_POS        4Y 0B  5 70DSPATR(UL)
+     A                                      EDTWRD('    ')
+     A                                  5  3'Type option, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  6  4'2=Update'
+     A                                      COLOR(BLU)
+     A                                  6 32'5=Display'
+     A                                      COLOR(BLU)
+     A                                  6 18'4=Delete'
+     A                                      COLOR(BLU)
+     A                                  8  9'ID'
+     A                                      COLOR(WHT)
+     A                                  8 15'Name'
+     A                                      COLOR(WHT)
+     A                                  8 47'City'
+     A                                      COLOR(WHT)
+     A                                  8 69'Role'
+     A                                      COLOR(WHT)
+     A            SCRNVAR       20A  O  2 31DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  8  3'Opt'
+     A                                      COLOR(WHT)
+     A          R FOOTER
+     A*%%TS  SD  20221221  055534  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      OVERLAY
+     A                                 20  4'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 20 49'F6=Add Employee'
+     A                                      COLOR(BLU)
+     A                                 21 46'F10=View Holidays'
+     A                                      COLOR(BLU)
+     A                                 20 17'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 21  4'F7=Add Holiday'
+     A                                      COLOR(BLU)
+     A                                 20 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A                                 21 24'F8=Manager Leave'
+     A                                      COLOR(BLU)
+     A          R ADD_EMP
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      CF04(04 'Prompt')
+     A                                      RTNCSRLOC(*RECNAME &CREC &CFLD)
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A            CREC          10A  H
+     A            CFLD          10A  H
+     A                                  7  2'Employee ID:'
+     A                                  8  2'Name:'
+     A                                  9  2'Gender:'
+     A                                  9 44'City:'
+     A                                 10  2'DOB:'
+     A                                 10 44'DOJ:'
+     A                                 11  2'Address:'
+     A                                 12  2'Country:'
+     A                                 12 46'Pin Code:'
+     A                                 13  2'Team:'
+     A                                 13 46'Project id:'
+     A                                 14  2'Designation:'
+     A                                 14 46'Manager Id:'
+     A                                 15  2'Mobile'
+     A                                 15  9'No.:'
+     A                                 15 46'Alt Mobile No.:'
+     A                                 16  2'Email'
+     A                                 16  8'office:'
+     A                                 17  2'Email personal:'
+     A                                 18  2'Employee'
+     A                                 18 11'Status:'
+     A                                 18 46'Role:'
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 33'F5=Refresh'
+     A  01                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A                                 22 16'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            SCRNVAR       20A  O  2 31PUTRETAIN
+     A                                  9 67'(F4=Prompt)'
+     A                                      COLOR(BLU)
+     A                                 18 34'(F4=Prompt)'
+     A                                      COLOR(BLU)
+     A                                 18 67'(F4=Prompt)'
+     A                                      COLOR(BLU)
+     A                                  9 30'(F4=Prompt)'
+     A                                      COLOR(BLU)
+     A                                 10 30'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                 10 62'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                 13 34'(F4=Prompt)'
+     A                                      COLOR(BLU)
+     A            ADDID          4Y 0O  7 19EDTCDE(4)
+     A            ADDNAME       40A  B  8 19
+     A  49                                  DSPATR(PR)
+     A  13                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                      DSPATR(UL)
+     A  53                                  ERRMSG('Incorrect Name ......' 53)
+     A            ADDGEN         6A  B  9 19DSPATR(UL)
+     A  14                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  49                                  DSPATR(PR)
+     A  54                                  ERRMSG('Not Valid, Press F4 To Sele-
+     A                                      ct Gender Type...' 54)
+     A            ADDCITY       15A  O  9 51DSPATR(UL)
+     A  15                                  DSPATR(PC)
+     A  55                                  ERRMSG('Please Select Your City Nam-
+     A                                      e Using F4 ...' 55)
+     A            ADDADR        50A  B 11 19
+     A  18                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      CHECK(LC)
+     A  50                                  DSPATR(PR)
+     A  58                                  ERRMSG('Incorrect Address / Blank F-
+     A                                      ield Not Allowed....' 58)
+     A            ADDCNTRY      10A  O 12 19DSPATR(UL)
+     A  19                                  DSPATR(PC)
+     A  59                                  ERRMSG('Incorrect Country Name / Bl-
+     A                                      ank Field Not Allowed' 59)
+     A            ADDTEAM       14A  O 13 19DSPATR(UL)
+     A  21                                  DSPATR(PC)
+     A  61                                  ERRMSG('Please Select Team By Using-
+     A                                       F4 ...' 61)
+     A            ADDDESIG      10A  B 14 19
+     A  23                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  63                                  ERRMSG('Blank Field / Invalid Desig-
+     A                                      nation.....' 63)
+     A            ADDPIN         6Y 0B 12 62
+     A  20                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      DSPATR(UL)
+     A                                      CHECK(MF)
+     A                                      RANGE(100000 999999)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  60                                  ERRMSG('Blank Field / Character Typ-
+     A                                      e / less than 6 digit pin are inval-
+     A                                      id ...' 60)
+     A            ADDPID         6Y 0B 13 62
+     A  22                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  62                                  ERRMSG('Blank Field / Invalid Proje-
+     A                                      ct ID ......' 62)
+     A            ADDMID         6Y 0B 14 62
+     A  24                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(4)
+     A                                      CHECK(FE)
+     A  80                                  DSPATR(PR)
+     A  64                                  ERRMSG('Invalid Manager ID / Blank -
+     A                                      Field Not Allowed ...' 64)
+     A            ADDMOB        10Y 0B 15 19RANGE(1000000000 9999999999)
+     A  25                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  65                                  ERRMSG('Blank Field / Invalid Mobil-
+     A                                      e Number ...' 65)
+     A            ADDAMOB       10Y 0B 15 62RANGE(1000000000 9999999999)
+     A  26                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  66                                  ERRMSG('Blank Field / Invalid Alter-
+     A                                      nate Mobile Number ...' 66)
+     A  73                                  ERRMSG('Not Should Be Same As Offic-
+     A                                      ial Mobile Number ...' 73)
+     A            ADDEMLO       50A  B 16 19
+     A  27                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                      DSPATR(UL)
+     A                                      NOCCSID
+     A  50                                  DSPATR(PR)
+     A  67                                  ERRMSG('Blank Field / Invalid Email-
+     A                                      -Id ...' 67)
+     A            ADDEMLP       50A  B 17 19
+     A  28                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A                                      DSPATR(UL)
+     A                                      NOCCSID
+     A  50                                  DSPATR(PR)
+     A  68                                  ERRMSG('Blank Field / Invalid Email-
+     A                                      -Id ...' 68)
+     A  74                                  ERRMSG('Not Should Be Same As Offic-
+     A                                      e Email-Id ...' 74)
+     A            ADDSTS         9A  O 18 19DSPATR(UL)
+     A  29                                  DSPATR(PC)
+     A  69                                  ERRMSG('Blank Field, Press F4 to Ch-
+     A                                      oose Correct Status ...' 69)
+     A            ADDROLE        9A  O 18 57DSPATR(UL)
+     A  30                                  DSPATR(PC)
+     A  70                                  ERRMSG('Should Not Be Blank, Press -
+     A                                      F4 To Select Role Type' 70)
+     A  75                                  ERRMSG('Active MANAGER Already Avai-
+     A                                      lable For This Team ...' 75)
+     A                                  1  2'USER:'
+     A            USERN          9A  O  1  8DSPATR(HI)
+     A                                      COLOR(WHT)
+     A            ADDDOB         8Y 0B 10 19EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  16                                  DSPATR(PC)
+     A  49                                  DSPATR(PR)
+     A                                      CHECK(FE)
+     A  56                                  ERRMSG('Date Of Birth Should Be In -
+     A                                      Valid Format ...' 56)
+     A            ADDDOJ         8Y 0B 10 51EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  17                                  DSPATR(PC)
+     A                                      CHECK(FE)
+     A  50                                  DSPATR(PR)
+     A  57                                  ERRMSG('Date Of Joining Should Be I-
+     A                                      n Valid Format ...' 57)
+     A  72                                  ERRMSG('Must be 18+ / Not Be Grater-
+     A                                       Than Current Date ...' 72)
+     A                                  5  2'Enter Valid Details,Press ENTER...-
+     A                                      .'
+     A  01                                  DSPATR(ND)
+     A                                      COLOR(BLU)
+     A                                 20 32'SUBMIT'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  31                                  DSPATR(PC)
+     A  01                                  DSPATR(ND)
+     A                                      COLOR(WHT)
+     A          R GENWIN
+     A*%%TS  SD  20221221  055534  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      WINDOW(8 27 5 12)
+     A            GEN            2Y 0B  2  2SNGCHCFLD
+     A                                      CHOICE(1 '>MALE ')
+     A                                      CHOICE(2 '>FEMALE')
+     A                                      CHOICE(3 '>OTHER')
+     A          R STSWIN
+     A*%%TS  SD  20221221  055534  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      WINDOW(16 28 4 15)
+     A            STS            2Y 0B  2  2SNGCHCFLD
+     A                                      CHOICE(1 '>ACTIVE ')
+     A                                      CHOICE(2 '>INACTIVE ')
+     A          R ROLWIN
+     A*%%TS  SD  20221221  055534  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      WINDOW(16 58 4 15)
+     A            ROL            2Y 0B  2  2SNGCHCFLD
+     A                                      CHOICE(1 '>MANAGER ')
+     A                                      CHOICE(2 '>EMPLOYEE ')
+     A          R CITYWIN                   SFL
+     A*%%TS  SD  20220717  155348  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            CTYOPT         1Y 0B  4  1EDTWRD(' ')
+     A            CTYNAM        23A  O  4  3
+     A          R CITYWINC                  SFLCTL(CITYWIN)
+     A*%%TS  SD  20220717  155348  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0015)
+     A                                      WINDOW(2 50 20 27)
+     A                                      CA12(12 'CANCEL')
+     A                                      ENTFLDATR
+     A                                      OVERLAY
+     A  90                                  SFLDSP
+     A  90                                  SFLDSPCTL
+     A N90                                  SFLCLR
+     A  90                                  SFLEND(*MORE)
+     A                                  3  1'OPT'
+     A                                      COLOR(WHT)
+     A                                  1  1'CITY SELECTION:'
+     A                                      COLOR(BLU)
+     A                                  2  7'1 = SELECT'
+     A                                      COLOR(BLU)
+     A          R TIMWIN
+     A*%%TS  SD  20221221  055534  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      OVERLAY
+     A                                      WINDOW(11 34 6 19)
+     A            TIM            2Y 0B  2  2SNGCHCFLD
+     A                                      CHOICE(1 '>RPG TEAM')
+     A                                      CHOICE(2 '>COBOL TEAM')
+     A                                      CHOICE(3 '>JAVA TEAM')
+     A                                      CHOICE(4 '>ANGULAR TEAM')
+     A          R ADLTSFL                   SFL
+     A*%%TS  SD  20221223  080542  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            DLTID          4Y 0O  9  2EDTWRD('    ')
+     A            DLTNAME       30A  O  9 11
+     A            DLTROLE        9A  O  9 46
+     A            DLTCITY       15A  O  9 60
+     A          R ADLTSFLC                  SFLCTL(ADLTSFL)
+     A*%%TS  SD  20221223  083909  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'EXIT')
+     A                                      CA12(12 'CANCEL')
+     A  92                                  SFLDSP
+     A  92                                  SFLDSPCTL
+     A N92                                  SFLCLR
+     A  92                                  SFLEND(*MORE)
+     A                                  2 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'DATE:'
+     A                                  5  2'Press Enter to Continue.'
+     A                                      COLOR(BLU)
+     A                                  6  2'Press F12 to Cancel.'
+     A                                      COLOR(BLU)
+     A                                  8  2'ID'
+     A                                      COLOR(WHT)
+     A                                  8 11'Employee Name'
+     A                                      COLOR(WHT)
+     A                                  2 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  8 46'Role'
+     A                                      COLOR(WHT)
+     A                                  8 60'City'
+     A                                      COLOR(WHT)
+     A                                  3 28'Confirm Delete of Records'
+     A                                  3 66'TIME:'
+     A                                  3 72TIME
+     A                                      COLOR(WHT)
+     A                                  2  2'USER:'
+     A                                  2  8'ADMIN'
+     A                                      COLOR(WHT)
+     A          R DLTFOOTER
+     A*%%TS  SD  20221227  102445  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      OVERLAY
+     A                                 21  4'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 21 18'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 21 35'F12=Cancel'
+     A                                      COLOR(BLU)
+     A          R ADHLD
+     A*%%TS  SD  20221228  112623  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      RTNCSRLOC(*RECNAME &AREC &AFLD)
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A            AREC          10A  H
+     A            AFLD          10A  H
+     A                                  9  3'Date:'
+     A                                 10  3'Day:'
+     A                                 11  3'Remarks:'
+     A            AAHDAY        11A  B 10 16DSPATR(UL)
+     A  14                                  DSPATR(PC)
+     A                                      DSPATR(PR)
+     A  54                                  ERRMSG('Blank Not Allowed...' 55)
+     A            AAHRMRK       30A  B 11 16
+     A  15                                  DSPATR(PC)
+     A                                      CHECK(LC)
+     A  55                                  ERRMSG('Blank Field Not Allowed....-
+     A                                      .' 55)
+     A                                      DSPATR(UL)
+     A                                      CHECK(FE)
+     A                                 22  3'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 17'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 34'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            AHSCRN        20A  O  2 31
+     A                                  9 29'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                  1  3'USER:'
+     A                                  1  9'ADMIN'
+     A                                      COLOR(WHT)
+     A            AAHDATE        8Y 0B  9 16EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  13                                  DSPATR(PC)
+     A                                      CHECK(FE)
+     A  53                                  ERRMSG('Blank /Invalid Date Format -
+     A                                      Not Allowed ...' 53)
+     A  72                                  ERRMSG('Already Applied On This Dat-
+     A                                      e ...' 72)
+     A                                 10 29'(Auto Generate)'
+     A                                      COLOR(BLU)
+     A            SUBMIT         6A  O 15 27DSPATR(HI)
+     A  71                                  DSPATR(RI)
+     A                                      DSPATR(UL)
+     A  31                                  DSPATR(PC)
+     A                                      COLOR(WHT)
+     A                                      DFTVAL('SUBMIT')
+     A                                      PUTRETAIN
+     A          R VHLDY                     SFL
+     A*%%TS  SD  20221227  064412  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            AVHDAY    R        O 10 29REFFLD(HOLIDAYR/DAY RAM10081/HOLIDA-
+     A                                      YPF)
+     A                                      DSPATR(UL)
+     A            AVHRMRK   R        O 10 45REFFLD(HOLIDAYR/REMARKS RAM10081/HO-
+     A                                      LIDAYPF)
+     A                                      DSPATR(UL)
+     A            AVHOPT         1Y 0B 10  3DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            AVHDATE        8Y 0B 10  8EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A                                      DSPATR(PR)
+     A          R VHLDYCNT                  SFLCTL(VHLDY)
+     A*%%TS  SD  20221227  102259  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  93                                  SFLDSP
+     A  93                                  SFLDSPCTL
+     A N93                                  SFLCLR
+     A  93                                  SFLEND(*MORE)
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2 34'View Holidays'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  6  2'Type choices, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  9  2'opt'
+     A                                      COLOR(WHT)
+     A                                  9  8'Date'
+     A                                      COLOR(WHT)
+     A                                  9 29'Day'
+     A                                      COLOR(WHT)
+     A                                  9 45'Remarks'
+     A                                      COLOR(WHT)
+     A                                  7  6'2=Update'
+     A                                      COLOR(BLU)
+     A                                  7 19'4=Delete'
+     A                                      COLOR(BLU)
+     A                                  1  2'USER:'
+     A                                  1  8'ADMIN'
+     A                                      COLOR(WHT)
+     A          R MGDSBRD
+     A*%%TS  SD  20221223  083444  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 32'Manager Dashboard'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  4  2'Select one of the following.'
+     A                                      COLOR(BLU)
+     A                                  6  2'1: Employee Details'
+     A                                  7  2'2: Approve/Deny Leaves'
+     A                                  8  2'3: Approve/Deny Comp off'
+     A                                  9  2'4: Apply Comp off'
+     A                                 10  2'5: Apply Leaves.'
+     A                                 11  2'6: Leaves Status'
+     A                                 12  2'7: Comp Off Status'
+     A                                 13  2'8: View Holidays'
+     A                                 14  2'9: Change Password'
+     A                                 16  2'10: Sign Off'
+     A                                 18  2'Selection'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                 19  2'=====>'
+     A            MSELECT        2Y 0B 19 12DSPATR(UL)
+     A                                      RANGE(1 10)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      COLOR(WHT)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            MTEAM         20A  O  2  8COLOR(WHT)
+     A                                  1  2'USER:'
+     A                                  1  8'MANAGER'
+     A                                      COLOR(WHT)
+     A          R MEMPDTLS                  SFL
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            MEDOPT         1Y 0B 12  4COMP(EQ 5)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            MEDID     R        O 12  8REFFLD(PF1R/EMP_ID RAM10081/EMPMAST-
+     A                                      ER)
+     A            MEDTEAM   R        O 12 38REFFLD(PF1R/TEAM RAM10081/EMPMASTER)
+     A            MEDNAME       20A  O 12 15
+     A            MEDDESIG      18A  O 12 61
+     A          R MEMPCNTR                  SFLCTL(MEMPDTLS)
+     A*%%TS  SD  20221223  083444  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  94                                  SFLDSP
+     A  94                                  SFLDSPCTL
+     A N94                                  SFLCLR
+     A  94                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 33'Employee Details'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  7  2'Type option, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  8  3'5=Details'
+     A                                      COLOR(BLU)
+     A                                 11  3'Opt'
+     A                                      COLOR(WHT)
+     A                                 11  8'ID'
+     A                                      COLOR(WHT)
+     A                                 11 15'Name'
+     A                                      COLOR(WHT)
+     A                                 11 38'Team'
+     A                                      COLOR(WHT)
+     A                                 11 61'Designation'
+     A                                      COLOR(WHT)
+     A            TEAMM         15A  O  2  8COLOR(WHT)
+     A                                  1  2'USER:'
+     A                                  1  8'MANAGER'
+     A                                      COLOR(WHT)
+     A          R MLEVSTS                   SFL
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            MADID     R        O 10  6REFFLD(PF1R/EMP_ID RAM10081/EMPMAST-
+     A                                      ER)
+     A                                      EDTWRD('    ')
+     A            MADNAME       20A  O 10 12
+     A            MADTTLDAY      3Y 1O 10 61EDTWRD('0 . ')
+     A            MADSTS         1A  O 10 73
+     A            MADOPT         1Y 0B 10  3DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A                                      VALUES(1 2 5)
+     A            MADTDATE       8Y 0O 10 48EDTCDE(Y)
+     A            MADFDATE       8Y 0O 10 35EDTCDE(Y)
+     A          R MLEVSTSC                  SFLCTL(MLEVSTS)
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  95                                  SFLDSP
+     A  95                                  SFLDSPCTL
+     A N95                                  SFLCLR
+     A  95                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  5  2'Type option, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  9  2'Opt'
+     A                                      COLOR(WHT)
+     A                                  9  6'ID'
+     A                                      COLOR(WHT)
+     A                                  9 12'Name'
+     A                                      COLOR(WHT)
+     A                                  2 30'Approve/Deny Leaves'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  9 35'from Date'
+     A                                      COLOR(WHT)
+     A                                  9 48'To Date'
+     A                                      COLOR(WHT)
+     A                                  9 61'Total Days'
+     A                                      COLOR(WHT)
+     A                                  9 73'Status'
+     A                                      COLOR(WHT)
+     A                                  6  3'1=Approve'
+     A                                      COLOR(BLU)
+     A                                  6 16'2=Deny'
+     A                                      COLOR(BLU)
+     A                                  6 26'5=Description'
+     A                                      COLOR(BLU)
+     A            MADTEAM       15A  O  2  8COLOR(WHT)
+     A                                  1  2'USER:'
+     A            MADUSR         9A  O  1  8COLOR(WHT)
+     A                                  2  2'TEAM:'
+     A          R MLEVDESC
+     A*%%TS  SD  20221223  083444  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 32'Leave Description'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  4  2'Select one of the following.'
+     A                                      COLOR(BLU)
+     A                                 19  2'Selection'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                 20  2'=====>'
+     A                                      COLOR(BLU)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            MLDTEAM       20A  O  2  8COLOR(WHT)
+     A                                  5  2'1=Approve'
+     A                                      COLOR(BLU)
+     A                                  5 15'2=Deny'
+     A                                      COLOR(BLU)
+     A                                  7  3'Employee id -'
+     A                                  8  3'Employee Name -'
+     A                                  9  3'From Date -'
+     A                                 10  3'From Day Type -'
+     A                                 11  3'To Date -'
+     A                                 12  3'To Day Type -'
+     A                                 13  3'Total Days -'
+     A                                 14  3'Reason -'
+     A                                 15  3'Status -'
+     A                                 16  3'Leave Type -'
+     A                                 17  3'Leave Balance -'
+     A            MLDID          4S 0O  7 22
+     A            MLDNAME       20A  O  8 22
+     A            MLDFDAY        2A  O 10 22
+     A            MLDTDAY        2A  O 12 22
+     A            MLDTTLDAY      4Y 1O 13 21EDTWRD('0  . ')
+     A            MLDRSN        20A  O 14 22
+     A            MLDSTS         2A  O 15 22
+     A            MLDLTYP        4A  O 16 22
+     A            MLDLBAL        4Y 1O 17 21EDTWRD(' 0 . ')
+     A            MLDFDATE       8Y 0O  9 22EDTCDE(Y)
+     A            MLDTDATE       8Y 0O 11 22EDTCDE(Y)
+     A                                  1  2'USER:'
+     A                                  1  8'MANAGER'
+     A                                      COLOR(WHT)
+     A            MLDSELECT      2Y 0B 20 11DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      VALUES(1 2)
+     A                                      EDTCDE(4)
+     A                                      COLOR(WHT)
+     A          R MAPPROVE                  SFL
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            MADCID    R        O 10  6REFFLD(PF1R/EMP_ID RAM10081/EMPMAST-
+     A                                      ER)
+     A            MADCOPT        1Y 0B 10  2DSPATR(UL)
+     A                                      VALUES(1 2 5)
+     A                                      EDTCDE(4)
+     A            MADCNAME      20A  O 10 12
+     A            MADCDTYP      10A  O 10 48
+     A            MADCSTS        1A  O 10 61
+     A            MADCWDATE      8Y 0O 10 35EDTCDE(Y)
+     A          R MAPPROVEC                 SFLCTL(MAPPROVE)
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  96                                  SFLDSP
+     A  96                                  SFLDSPCTL
+     A N96                                  SFLCLR
+     A  96                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  5  2'Type option, press Enter.'
+     A                                      COLOR(BLU)
+     A                                  9  2'Opt'
+     A                                      COLOR(WHT)
+     A                                  9  6'ID'
+     A                                      COLOR(WHT)
+     A                                  9 12'Name'
+     A                                      COLOR(WHT)
+     A                                  2 30'Approve/Deny Comp Off'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  6  3'1=Approve'
+     A                                      COLOR(BLU)
+     A                                  6 16'2=Deny'
+     A                                      COLOR(BLU)
+     A                                  6 26'5=Description'
+     A                                      COLOR(BLU)
+     A                                  9 35'Worked Date'
+     A                                      COLOR(WHT)
+     A                                  9 48'Day Type'
+     A                                      COLOR(WHT)
+     A                                  9 61'Status'
+     A                                      COLOR(WHT)
+     A            MADCTEAM      18A  O  2  8COLOR(WHT)
+     A                                  1  2'USER:'
+     A            MADCUSR        9A  O  1  8COLOR(WHT)
+     A                                  2  2'TEAM:'
+     A          R MCOMPDES
+     A*%%TS  SD  20221223  080542  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                  1  2'USER:'
+     A                                      COLOR(GRN)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 66'TIME:'
+     A                                  4  2'Select one of the following.'
+     A                                      COLOR(BLU)
+     A                                 17  3'Selection'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                 18  3'=====>'
+     A                                      COLOR(BLU)
+     A            MCDSELECT      2Y 0B 18 12DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      VALUES(1 2)
+     A                                      EDTCDE(4)
+     A                                      COLOR(WHT)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            MCDTEAM       20A  O  2  8COLOR(WHT)
+     A                                  5  3'1=Approve'
+     A                                      COLOR(BLU)
+     A                                  5 16'2=Deny'
+     A                                      COLOR(BLU)
+     A                                  7  3'Employee id -'
+     A                                  8  3'Employee Name -'
+     A                                 11  3'Reason -'
+     A                                 12  3'Status -'
+     A            MCDID          4S 0O  7 22
+     A            MCDNAME       20A  O  8 22
+     A            MCDDTYP        2A  O 10 22
+     A            MCDRSN        30A  O 11 22
+     A            MCDSTS         1A  O 12 22
+     A                                  9  3'worked date -'
+     A                                 10  3'Day Type -'
+     A                                 13  3'Project ID -'
+     A            MCDPID         6A  O 13 22
+     A            MCDWDATE       8A  O  9 22
+     A                                  2 31'Comp Off Description'
+     A                                  1  8'MANAGER'
+     A                                      COLOR(WHT)
+     A          R MACOMPOF
+     A*%%TS  SD  20221228  183715  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      RTNCSRLOC(*RECNAME &BREC &BFLD)
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 34'Apply Comp Off'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A            BREC          10A  H
+     A            BFLD          10A  H
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            MACTEAM       20A  O  2  8COLOR(WHT)
+     A                                 12  2'Project ID:'
+     A                                  6  2'Worked Date:'
+     A            MACRSN        50A  B 10 18
+     A  15                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      CHECK(LC)
+     A  55                                  ERRMSG('Blank Field / Invalid Data -
+     A                                      Entry Not Allowed ...' 55)
+     A            MACPID         6Y 0O 12 18
+     A  16                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A                                      EDTCDE(4)
+     A  56                                  ERRMSG('Blank Field Not Allowed....-
+     A                                      .' 56)
+     A                                  6 30'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                  1  2'USER:'
+     A            MACUSR         9A  O  1  8COLOR(WHT)
+     A            MACWDATE       8Y 0B  6 18EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  13                                  DSPATR(PC)
+     A  53                                  ERRMSG('Invalid Date Format.....' 5-
+     A                                      3)
+     A  72                                  ERRMSG('Already Applied On This Dat-
+     A                                      e ...' 72)
+     A  73                                  ERRMSG('No Holiday On This Date ...-
+     A                                      ' 73)
+     A  74                                  ERRMSG('Should not be Lower than Cu-
+     A                                      rrent Date Or Can Applied only for -
+     A                                      3 Months ...')
+     A                                  8  2'No. Of Days:'
+     A                                 10  2'Reason:'
+     A            MACDAYS        2Y 0B  8 18DSPATR(UL)
+     A  14                                  DSPATR(PC)
+     A                                      EDTCDE(4)
+     A  54                                  ERRMSG('Blank Field Not Allowed....-
+     A                                      .' 54)
+     A            SUBMIT         6   O 16 30
+     A  71                                  DSPATR(RI)
+     A                                      DSPATR(BL)
+     A  31                                  DSPATR(PC)
+     A                                      DFTVAL('SUBMIT')
+     A                                      COLOR(WHT)
+     A          R MALEAVE1
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 35'Apply Leaves'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A                                  6  2'Select one of the following....'
+     A                                      COLOR(BLU)
+     A                                  7 20' 2=Earned Leave'
+     A                                      COLOR(BLU)
+     A                                  7 38' 3=Comp Off Leave'
+     A                                      COLOR(BLU)
+     A                                  9  4'Casual Leaves:'
+     A                                 11  4'Earned Leaves:'
+     A                                 13  4'Comp Off Leaves:'
+     A                                 16  2'Selection'
+     A                                      COLOR(BLU)
+     A                                 16 12'===>'
+     A                                      COLOR(BLU)
+     A            MALSELECT      2Y 0B 16 18DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      VALUES(1 2 3)
+     A                                      EDTCDE(4)
+     A            MALCL          4Y 1O  9 23EDTWRD('0  . ')
+     A            MALEL          4Y 1O 11 23EDTWRD('0  . ')
+     A            MALCOL         4Y 1O 13 23EDTWRD('0  . ')
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  2  2'TEAM:'
+     A            MALTEAM       20A  O  2  8COLOR(WHT)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  1  2'USER:'
+     A            MALUSR         9A  O  1  8COLOR(WHT)
+     A                                  7  3'1=Casual Leave'
+     A                                      COLOR(BLU)
+     A          R MALEAVE2
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      CF04(04 'PROMPT')
+     A                                      RTNCSRLOC(*RECNAME &DREC &DFLD)
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 35'Apply Leaves'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            DREC          10A  H
+     A            DFLD          10A  H
+     A                                  6  2'From Date:'
+     A                                  6 39'From day type:'
+     A                                  8  2'To Date:'
+     A                                 10  2'Reason:'
+     A                                  8 39'To day type:'
+     A                                  6 66'(F4 prompt)'
+     A                                      COLOR(BLU)
+     A                                  8 66'(F4 prompt)'
+     A                                      COLOR(BLU)
+     A            MAPLRSN       50A  B 10 13
+     A  22                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A  62                                  ERRMSG('Invalid / Blank Field Not A-
+     A                                      llowed....' 62)
+     A                                      CHECK(FE)
+     A            MAPLFDAY       9A  O  6 55DSPATR(UL)
+     A  19                                  DSPATR(PC)
+     A  59                                  ERRMSG('Invalid From Day Type....' -
+     A                                      59)
+     A            MAPLTDAY       9A  O  8 55DSPATR(UL)
+     A  21                                  DSPATR(PC)
+     A  61                                  ERRMSG('Invalid To-Day Type.....' 6-
+     A                                      1)
+     A  78                                  ERRMSG('Should Have Same Day-Type F-
+     A                                      or Same Date ...' 78)
+     A  79                                  ERRMSG('At Least One Day-Type Shoul-
+     A                                      d Be "FD"' 79)
+     A                                  2  2'TEAM:'
+     A            MAPLTEAM      20A  O  2  8COLOR(WHT)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1  2'USER:'
+     A            MAPLUSR        9A  O  1  8COLOR(WHT)
+     A                                  6 25'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                  8 25'(MM/DD/YYYY)'
+     A                                      COLOR(BLU)
+     A                                 12  2'TOTAL DAYS OF LEAVE APPLY...:'
+     A                                      COLOR(BLU)
+     A            TTLIVAPLY      3  1O 12 33EDTWRD('0 . ')
+     A                                      COLOR(WHT)
+     A                                      DSPATR(HI)
+     A                                      DSPATR(BL)
+     A                                      DSPATR(UL)
+     A            MAPLFDATE      8Y 0B  6 13EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  18                                  DSPATR(PC)
+     A                                      CHECK(FE)
+     A  58                                  ERRMSG('Blank / Invalid Date Format-
+     A                                       ...' 58)
+     A  72                                  ERRMSG('Official Holiday On This Da-
+     A                                      te ...' 72)
+     A  73                                  ERRMSG('Should Be Greater Than / Eq-
+     A                                      ual To Current Date ...' 73)
+     A  74                                  ERRMSG('Already Applied On This Dat-
+     A                                      e ...' 74)
+     A            MAPLTDATE      8Y 0B  8 13EDTCDE(Y)
+     A                                      EDTMSK('  &  &    ')
+     A  20                                  DSPATR(PC)
+     A                                      CHECK(FE)
+     A  60                                  ERRMSG('Blank / Invalid Date Format-
+     A                                       ...' 60)
+     A  75                                  ERRMSG('Official Holiday On This Da-
+     A                                      te ...' 75)
+     A  76                                  ERRMSG('Should be Greater Than From-
+     A                                      -Date / Current Date ..' 76)
+     A  77                                  ERRMSG('Already Applied For This Da-
+     A                                      te ...' 77)
+     A  80                                  ERRMSG('Not Have Enough Leave Balan-
+     A                                      ce ...' 80)
+     A            SUBMIT         6A  O 16 34
+     A  71                                  DSPATR(RI)
+     A                                      DSPATR(BL)
+     A  31                                  DSPATR(PC)
+     A                                      COLOR(WHT)
+     A                                      DFTVAL('SUBMIT')
+     A          R DAYTYPWIN
+     A*%%TS  SD  20221221  093008  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      OVERLAY
+     A                                      WINDOW(7 63 5 9)
+     A            FDY            2Y 0B  2  2SNGCHCFLD
+     A                                      CHOICE(1 '>FH ')
+     A                                      CHOICE(2 '>FD ')
+     A                                      CHOICE(3 '>SH ')
+     A          R MLSTS                     SFL
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            MLSOPT         1Y 0B 10  2COMP(EQ 1)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            MLSLTYP        2A  O 10 67
+     A            MLSSTS         1A  O 10 55
+     A            MLSTTLDAY      3Y 1O 10 38EDTWRD('0 . ')
+     A            MLSFDATE       8Y 0O 10  8EDTCDE(Y)
+     A            MLSTDATE       8Y 0O 10 24EDTCDE(Y)
+     A          R MLSTSC                    SFLCTL(MLSTS)
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  97                                  SFLDSP
+     A  97                                  SFLDSPCTL
+     A N97                                  SFLCLR
+     A  97                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  9  2'opt'
+     A                                      COLOR(WHT)
+     A                                  2 35'Leave Status'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  7  2'Press 1 to cancel the applied leav-
+     A                                      e'
+     A                                      COLOR(BLU)
+     A                                  9  8'From date'
+     A                                      COLOR(WHT)
+     A                                  9 24'To Date'
+     A                                      COLOR(WHT)
+     A                                  9 38'Total Days'
+     A                                      COLOR(WHT)
+     A                                  9 55'Status'
+     A                                      COLOR(WHT)
+     A                                  9 67'Leave Type'
+     A                                      COLOR(WHT)
+     A            MLSTEAM       20A  O  2  8COLOR(WHT)
+     A                                  1  2'USER:'
+     A            MLSUSR         9A  O  1  8COLOR(WHT)
+     A          R MCSTS                     SFL
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A  02                                  SFLNXTCHG
+     A            MCSOPT         1Y 0B 10  2COMP(EQ 1)
+     A                                      DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      EDTCDE(4)
+     A            MCSRSN        20A  O 10 24
+     A            MCSAUNIT       2Y 0O 10 49EDTWRD('0 ')
+     A            MCSSTS         2A  O 10 67
+     A            MCSDATE        8Y 0O 10  8EDTCDE(Y)
+     A          R MCSTSC                    SFLCTL(MCSTS)
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  98                                  SFLDSP
+     A  98                                  SFLDSPCTL
+     A N98                                  SFLCLR
+     A  98                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  9  2'Opt'
+     A                                      COLOR(WHT)
+     A                                  2 33'Comp Off Status'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  6  2'Press 1 to cancel the applied Comp-
+     A                                      -off...'
+     A                                      COLOR(BLU)
+     A                                  9 67'Status'
+     A                                      COLOR(WHT)
+     A            MCSTEAM       20A  O  2  8COLOR(WHT)
+     A                                  9  8'Date'
+     A                                      COLOR(WHT)
+     A                                  9 24'Reason'
+     A                                      COLOR(WHT)
+     A                                  9 49'Adjusted Unit'
+     A                                      COLOR(WHT)
+     A                                  1  2'USER:'
+     A            MCSUSR         9A  O  1  8COLOR(WHT)
+     A          R MVHLD                     SFL
+     A*%%TS  SD  20221221  095144  RAM1008     REL-V7R5M0  5770-WDS
+     A            MVHDAY    R        O 10 29REFFLD(HOLIDAYR/DAY RAM10081/HOLIDA-
+     A                                      YPF)
+     A            MVHRMRK   R        O 10 45REFFLD(HOLIDAYR/REMARKS RAM10081/HO-
+     A                                      LIDAYPF)
+     A            MVHDATE        8Y 0O 10  8EDTCDE(Y)
+     A          R MVHLDC                    SFLCTL(MVHLD)
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      SFLSIZ(9999)
+     A                                      SFLPAG(0005)
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A  99                                  SFLDSP
+     A  99                                  SFLDSPCTL
+     A N99                                  SFLCLR
+     A  99                                  SFLEND(*MORE)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2 34'View Holidays'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  9  8'Date'
+     A                                      COLOR(WHT)
+     A                                  9 29'Day'
+     A                                      COLOR(WHT)
+     A                                  9 45'Remarks'
+     A                                      COLOR(WHT)
+     A                                  2  3'TEAM:'
+     A            MVHTEAM       20A  O  2  9COLOR(WHT)
+     A                                  1  3'USER:'
+     A            MVHUSR         9A  O  1  9COLOR(WHT)
+     A          R MCPASS
+     A*%%TS  SD  20221221  095144  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA12(12 'Cancel')
+     A                                      CA05(05 'Refresh')
+     A                                      OVERLAY
+     A                                      RTNCSRLOC(*RECNAME &EREC &EFLD)
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 33'Change Password'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(GRN)
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A            EREC          10A  H
+     A            EFLD          10A  H
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 39'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            MCPTEAM       20A  O  2  8COLOR(WHT)
+     A                                  6  6'User.....................:'
+     A                                  8  6'Current password.........:'
+     A                                 10  6'New password.............:'
+     A                                 12  6'New password (to verify).:'
+     A            MCPUSER        4Y 0O  6 35EDTCDE(4)
+     A            MCPNPASS      20A  B 10 35CHECK(LC)
+     A  22                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A  52                                  ERRMSG('InValid Password....' 52)
+     A            MCPCPASS      20A  B  8 35CHECK(LC)
+     A  21                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A  51                                  ERRMSG('InValid Password.....' 51)
+     A            MCPNPASSV     20A  B 12 35CHECK(LC)
+     A  23                                  DSPATR(PC)
+     A                                      DSPATR(UL)
+     A  53                                  ERRMSG('Does Not Match With New Pas-
+     A                                      sword.....' 53)
+     A                                  1  2'USER:'
+     A            MCPUSR         9A  O  1  8COLOR(WHT)
+     A                                 22 19'F5=Refresh'
+     A                                      COLOR(BLU)
+     A          R EMPDSBRD
+     A*%%TS  SD  20221228  162536  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                  1 25'Employee Leave Management System'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1 66'DATE:'
+     A                                  2  2'TEAM:'
+     A                                  2 66'TIME:'
+     A                                  4  2'Select one of the following.'
+     A                                      COLOR(BLU)
+     A                                 18  2'Selection'
+     A                                      COLOR(BLU)
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                 19  2'=====>'
+     A                                      COLOR(BLU)
+     A            EDSELECT       2Y 0B 19 12DSPATR(UL)
+     A                                      DSPATR(PC)
+     A                                      VALUES(1 2 3 4 5 6 7)
+     A                                      COLOR(WHT)
+     A                                      EDTCDE(4)
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A            EDTEAM        20A  O  2  8COLOR(WHT)
+     A                                  7  2'1: Apply Comp-offs'
+     A                                  8  2'2: Apply Leaves.'
+     A                                  9  2'3: Leave Status.'
+     A                                 10  2'4: Comp-off Status'
+     A                                 11  2'5: View Holidays'
+     A                                 12  2'6: Change Password'
+     A                                 15  2'7: Sign Off.'
+     A                                  2 31'Employee Dashboard'
+     A                                      DSPATR(HI)
+     A                                      COLOR(GRN)
+     A                                  1  2'USER:'
+     A                                      COLOR(GRN)
+     A                                  1  8'EMPLOYEE'
+     A                                      COLOR(WHT)
+     A          R MLIVAPR
+     A*%%TS  SD  20221228  170754  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      CA03(03 'Exit')
+     A                                      CA05(05 'Refresh')
+     A                                      CA12(12 'Cancel')
+     A                                      OVERLAY
+     A                                 22  2'F3=Exit'
+     A                                      COLOR(BLU)
+     A                                 22 16'F5=Refresh'
+     A                                      COLOR(BLU)
+     A                                 22 33'F12=Cancel'
+     A                                      COLOR(BLU)
+     A                                  6  2'Select one of the following....'
+     A                                      COLOR(BLU)
+     A                                 13  2'Selection'
+     A                                      COLOR(BLU)
+     A            ALIVSLCT       2Y 0B 13 17RANGE(1 2)
+     A                                      COLOR(WHT)
+     A                                      EDTCDE(4)
+     A                                  1 66'DATE:'
+     A                                  2 66'TIME:'
+     A                                  1 72DATE
+     A                                      EDTCDE(Y)
+     A                                      COLOR(WHT)
+     A                                  2 72TIME
+     A                                      COLOR(WHT)
+     A                                  1  2'USER:'
+     A            ALIVUSR        9A  O  1  8COLOR(WHT)
+     A                                  8  4'1 = MANAGER LEAVES APPROVE/DENY'
+     A                                  9  4'2 = MANAGER COMP-OFF APPROVE/DENY'
+     A                                 13 12'==>'
+     A                                      COLOR(BLU)
+     A                                  1 25'Employee Leave Management System'
+     A                                  2 29'Manager Leaves Operation'
+     A          R SUCCESSWIN
+     A*%%TS  SD  20221223  080542  RAM1008     REL-V7R5M0  5770-WDS
+     A                                      WINDOW(11 21 4 35)
+     A                                      OVERLAY
+     A            SCS_WIN       30A  O  2  4COLOR(BLU)
+     A                                  3  7'Press ENTER To Continue'
+     A                                      DSPATR(PC)

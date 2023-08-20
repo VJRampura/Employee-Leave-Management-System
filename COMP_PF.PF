@@ -1,0 +1,8 @@
+                R COMPOFFR
+                  EMP_CID        4S         COLHDG('EMPLOYEE ID')
+                  WORK_DATE      8S         EDTCDE(Y)
+                  DAY_TYPE       2A
+                  REASON       100A         COLHDG('REASON FOR COMPOFF')
+                  STATUS         1A         COLHDG('STATUS OF COMP-OFF')
+                  PROJECT_ID     6A         COLHDG('ID FOR PROJECT')
+                K EMP_CID

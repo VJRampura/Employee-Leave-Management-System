@@ -1,0 +1,4 @@
+                R LOGINR
+                  USER_ID        4S         COLHDG('EMPLOYEE ID')
+                  PASSWORD      20A         COLHDG('PASSWORD')
+                K USER_ID

@@ -1,0 +1,21 @@
+                R PF1R
+                  EMP_ID         4S 0       COLHDG('EMPLOYEE ID')
+                  EMP_NAME      30A         COLHDG('EMPLOYEE NAME')
+                  ADDRESS      100A
+                  PIN_CODE       6S 0
+                  CITY          30A
+                  COUNTRY       20A
+                  CONTACT_NO    10S 0
+                  EMER_NO       10S 0       COLHDG('EMERGENCY NO.')
+                  GENDER         9A
+                  DOB            8S         EDTCDE(Y)
+                  DOJ            8S         EDTCDE(Y)
+                  EMAIL_P       60A         COLHDG('EMAIL PERSONAL')
+                  EMAIL_O       60A         COLHDG('EMAIL OFFICE')
+                  TEAM          20A
+                  PROJECT_ID     6S 0
+                  MANAGER_ID     6S 0
+                  ROLE           9A
+                  DESIG         25A         COLHDG('DESIGNATION')
+                  STATUS         9A
+                K EMP_ID

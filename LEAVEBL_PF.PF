@@ -1,0 +1,7 @@
+                R LEAVEBALR
+                  EMP_BID        4S         COLHDG('EMPLOYEE ID')
+                  CL             3S 1       COLHDG('CASUAL LEAVE')
+                  EL             3S 1       COLHDG('NO OF EARNED LEAVES')
+                  COMP_LEAVE     2S 0       COLHDG('NO OF COMP LEAVES')
+                  L_DATE         8S         EDTCDE(Y)
+                K EMP_BID

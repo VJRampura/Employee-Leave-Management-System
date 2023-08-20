@@ -1,0 +1,5 @@
+                R HOLIDAYR
+                  DATE           8S         EDTCDE(Y)
+                  DAY           10A         COLHDG('DAY OF HOLIDAY')
+                  REMARKS       20A         COLHDG('REASON OF HOLIDAY')
+                K DATE
